@@ -1,0 +1,591 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Lisa1021</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Lato:wght@300;400&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --cream: #f5f0e8;
+      --warm-white: #faf7f2;
+      --ink: #1a1713;
+      --muted: #8a8178;
+      --accent: #c4a882;
+      --border: #e2d9cc;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background: var(--warm-white);
+      color: var(--ink);
+      font-family: 'Lato', sans-serif;
+      font-weight: 300;
+      min-height: 100vh;
+    }
+
+    /* NAV */
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.5rem 3rem;
+      background: rgba(250, 247, 242, 0.88);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav-logo {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.4rem;
+      font-weight: 300;
+      letter-spacing: 0.12em;
+      color: var(--ink);
+      text-decoration: none;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2.5rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-size: 0.75rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--muted);
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+
+    .nav-links a:hover {
+      color: var(--ink);
+    }
+
+    /* HERO / PROFILE */
+    .hero {
+      padding: 10rem 3rem 5rem;
+      max-width: 900px;
+      margin: 0 auto;
+      display: flex;
+      align-items: flex-start;
+      gap: 4rem;
+      opacity: 0;
+      animation: fadeUp 1s ease forwards 0.2s;
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .profile-avatar {
+      flex-shrink: 0;
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 1px solid var(--border);
+      background: var(--cream);
+    }
+
+    .profile-avatar-placeholder {
+      flex-shrink: 0;
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      border: 1px solid var(--border);
+      background: var(--cream);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .profile-avatar-placeholder svg {
+      width: 40px;
+      height: 40px;
+      opacity: 0.3;
+    }
+
+    .profile-text {
+      padding-top: 0.5rem;
+    }
+
+    .profile-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2.8rem;
+      font-weight: 300;
+      line-height: 1.1;
+      letter-spacing: 0.02em;
+      margin-bottom: 1rem;
+    }
+
+    .profile-bio {
+      font-size: 0.95rem;
+      line-height: 1.8;
+      color: var(--muted);
+      max-width: 480px;
+    }
+
+    /* DIVIDER */
+    .divider {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 0 3rem;
+      border: none;
+      border-top: 1px solid var(--border);
+    }
+
+    /* GALLERY SECTION */
+    .gallery-section {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 4rem 3rem 8rem;
+    }
+
+    .year-group {
+      margin-bottom: 5rem;
+      opacity: 0;
+      animation: fadeUp 0.8s ease forwards;
+    }
+
+    .year-group:nth-child(1) { animation-delay: 0.3s; }
+    .year-group:nth-child(2) { animation-delay: 0.45s; }
+    .year-group:nth-child(3) { animation-delay: 0.6s; }
+    .year-group:nth-child(4) { animation-delay: 0.75s; }
+
+    .year-header {
+      display: flex;
+      align-items: baseline;
+      gap: 1.5rem;
+      margin-bottom: 2rem;
+    }
+
+    .year-label {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 3.5rem;
+      font-weight: 300;
+      color: var(--border);
+      line-height: 1;
+      letter-spacing: -0.02em;
+    }
+
+    .group-title {
+      font-size: 0.75rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .group-desc {
+      font-size: 0.85rem;
+      color: var(--muted);
+      margin-top: 0.3rem;
+      font-style: italic;
+      font-family: 'Cormorant Garamond', serif;
+    }
+
+    .photo-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0.75rem;
+    }
+
+    .photo-grid .wide {
+      grid-column: span 2;
+    }
+
+    .photo-item {
+      position: relative;
+      overflow: hidden;
+      background: var(--cream);
+      cursor: pointer;
+    }
+
+    .photo-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.6s ease, filter 0.4s ease;
+      aspect-ratio: 4/3;
+    }
+
+    .photo-item.wide img {
+      aspect-ratio: 16/9;
+    }
+
+    .photo-item:hover img {
+      transform: scale(1.03);
+      filter: brightness(0.92);
+    }
+
+    .photo-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(26,23,19,0.5) 0%, transparent 50%);
+      opacity: 0;
+      transition: opacity 0.4s;
+      display: flex;
+      align-items: flex-end;
+      padding: 1rem;
+    }
+
+    .photo-item:hover .photo-overlay {
+      opacity: 1;
+    }
+
+    .photo-caption {
+      color: white;
+      font-size: 0.75rem;
+      letter-spacing: 0.1em;
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+    }
+
+    /* LIGHTBOX */
+    .lightbox {
+      display: none;
+      position: fixed;
+      inset: 0;
+      z-index: 200;
+      background: rgba(26, 23, 19, 0.95);
+      align-items: center;
+      justify-content: center;
+      cursor: zoom-out;
+    }
+
+    .lightbox.active {
+      display: flex;
+      animation: fadeIn 0.3s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to   { opacity: 1; }
+    }
+
+    .lightbox img {
+      max-width: 90vw;
+      max-height: 90vh;
+      object-fit: contain;
+      border: none;
+    }
+
+    .lightbox-close {
+      position: absolute;
+      top: 2rem;
+      right: 2.5rem;
+      color: rgba(255,255,255,0.5);
+      font-size: 1.5rem;
+      cursor: pointer;
+      background: none;
+      border: none;
+      line-height: 1;
+      transition: color 0.2s;
+    }
+
+    .lightbox-close:hover {
+      color: white;
+    }
+
+    /* FOOTER */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 2rem 3rem;
+      text-align: center;
+    }
+
+    footer p {
+      font-size: 0.7rem;
+      letter-spacing: 0.15em;
+      color: var(--border);
+      text-transform: uppercase;
+    }
+
+    /* HEART BUTTON */
+    .heart-row {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      margin-top: 1.2rem;
+    }
+
+    .heart-btn {
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 0;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      color: var(--muted);
+      transition: color 0.2s;
+    }
+
+    .heart-btn svg {
+      width: 20px;
+      height: 20px;
+      transition: transform 0.15s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    .heart-btn:hover svg {
+      transform: scale(1.2);
+    }
+
+    .heart-btn.liked svg {
+      fill: #e07070;
+      stroke: #e07070;
+    }
+
+    .heart-btn.pop svg {
+      transform: scale(1.4);
+    }
+
+    .heart-count {
+      font-size: 0.8rem;
+      letter-spacing: 0.05em;
+      color: var(--muted);
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+    }
+
+    /* PLACEHOLDER PHOTOS */
+    .photo-placeholder {
+      width: 100%;
+      aspect-ratio: 4/3;
+      background: var(--cream);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .photo-placeholder.wide {
+      aspect-ratio: 16/9;
+    }
+
+    .photo-placeholder svg {
+      width: 32px;
+      height: 32px;
+      opacity: 0.2;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a href="#" class="nav-logo">Lisa</a>
+    <ul class="nav-links">
+      <li><a href="#gallery">相册</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="profile-avatar-placeholder">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1">
+        <circle cx="12" cy="8" r="4"/>
+        <path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/>
+      </svg>
+    </div>
+    <div class="profile-text">
+      <h1 class="profile-name">Lisa</h1>
+      <p class="profile-bio">用镜头记录生活里安静的美。花草、光影、转瞬即逝的日常。</p>
+    </div>
+  </section>
+
+  <hr class="divider" />
+
+  <!-- GALLERY -->
+  <main class="gallery-section" id="gallery">
+
+    <!-- 2026 -->
+    <div class="year-group">
+      <div class="year-header">
+        <span class="year-label">2026</span>
+        <div>
+          <div class="group-title">新的一年</div>
+          <div class="group-desc">还在继续</div>
+        </div>
+      </div>
+      <div class="photo-grid">
+        <div class="photo-item">
+          <div class="photo-placeholder">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg>
+          </div>
+        </div>
+        <div class="photo-item wide">
+          <div class="photo-placeholder wide">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg>
+          </div>
+        </div>
+      </div>
+      <div class="heart-row">
+        <button class="heart-btn" onclick="likeGroup(this, 'group-2026')">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+          </svg>
+        </button>
+        <span class="heart-count" id="count-group-2026">0</span>
+      </div>
+    </div>
+
+    <!-- 2025 -->
+    <div class="year-group">
+      <div class="year-header">
+        <span class="year-label">2025</span>
+        <div>
+          <div class="group-title">春日记录</div>
+          <div class="group-desc">花开的声音</div>
+        </div>
+      </div>
+      <div class="photo-grid">
+        <div class="photo-item wide">
+          <div class="photo-placeholder wide">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg>
+          </div>
+        </div>
+        <div class="photo-item">
+          <div class="photo-placeholder">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg>
+          </div>
+        </div>
+        <div class="photo-item">
+          <div class="photo-placeholder">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg>
+          </div>
+        </div>
+        <div class="photo-item wide">
+          <div class="photo-placeholder wide">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg>
+          </div>
+        </div>
+      </div>
+      <div class="heart-row">
+        <button class="heart-btn" onclick="likeGroup(this, 'group-2025')">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+          </svg>
+        </button>
+        <span class="heart-count" id="count-group-2025">0</span>
+      </div>
+    </div>
+
+    <!-- 2024 -->
+    <div class="year-group">
+      <div class="year-header">
+        <span class="year-label">2024</span>
+        <div>
+          <div class="group-title">秋与冬</div>
+          <div class="group-desc">落叶季的颜色</div>
+        </div>
+      </div>
+      <div class="photo-grid">
+        <div class="photo-item">
+          <div class="photo-placeholder">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg>
+          </div>
+        </div>
+        <div class="photo-item">
+          <div class="photo-placeholder">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg>
+          </div>
+        </div>
+        <div class="photo-item">
+          <div class="photo-placeholder">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg>
+          </div>
+        </div>
+      </div>
+      <div class="heart-row">
+        <button class="heart-btn" onclick="likeGroup(this, 'group-2024')">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+          </svg>
+        </button>
+        <span class="heart-count" id="count-group-2024">0</span>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- LIGHTBOX -->
+  <div class="lightbox" id="lightbox">
+    <button class="lightbox-close" onclick="closeLightbox()">✕</button>
+    <img id="lightbox-img" src="" alt="" />
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <p>Lisa &nbsp;·&nbsp; All rights reserved</p>
+  </footer>
+
+  <script>
+    // Hearts — Cloudflare Workers 持久化
+    const API = 'https://lisa1021-hearts.YOUR_SUBDOMAIN.workers.dev'; // 部署后替换这个地址
+
+    async function loadCounts() {
+      try {
+        const res = await fetch(`${API}/counts`);
+        const data = await res.json();
+        Object.entries(data).forEach(([key, val]) => {
+          const el = document.getElementById('count-' + key);
+          if (el) el.textContent = val;
+        });
+      } catch(e) {}
+    }
+
+    async function likeGroup(btn, key) {
+      btn.classList.add('liked', 'pop');
+      setTimeout(() => btn.classList.remove('pop'), 200);
+      try {
+        const res = await fetch(`${API}/like/${key}`, { method: 'POST' });
+        const data = await res.json();
+        const el = document.getElementById('count-' + key);
+        if (el) el.textContent = data.count;
+      } catch(e) {}
+    }
+
+    loadCounts();
+
+    // Lightbox
+    document.querySelectorAll('.photo-item img').forEach(img => {
+      img.addEventListener('click', () => {
+        document.getElementById('lightbox-img').src = img.src;
+        document.getElementById('lightbox').classList.add('active');
+      });
+    });
+
+    function closeLightbox() {
+      document.getElementById('lightbox').classList.remove('active');
+    }
+
+    document.getElementById('lightbox').addEventListener('click', function(e) {
+      if (e.target === this) closeLightbox();
+    });
+
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Escape') closeLightbox();
+    });
+  </script>
+
+</body>
+</html>
