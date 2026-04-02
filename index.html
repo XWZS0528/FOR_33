@@ -483,7 +483,7 @@
           const delay = 0.3 + i * 0.15;
           const photosHtml = album.photos ? album.photos.map(p => `
             <div class="photo-item">
-              <img src="${p.image}" alt="${p.caption || ''}" />
+              <img src="${p.image}" alt="${p.caption || ''}" style="width:100%;height:100%;object-fit:cover;display:block;aspect-ratio:4/3;cursor:pointer;" />
               <div class="photo-overlay">
                 <span class="photo-caption">${p.caption || ''}</span>
               </div>
