@@ -2,6 +2,8 @@ backend:
   name: github
   repo: XWZS0528/FOR_33
   branch: main
+  base_url: https://oauth.lisa1021.com
+  auth_endpoint: /auth
 
 media_folder: images
 public_folder: /images
