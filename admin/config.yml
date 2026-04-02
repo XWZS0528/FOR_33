@@ -1,0 +1,35 @@
+backend:
+  name: github
+  repo: XWZS0528/FOR_33
+  branch: main
+
+media_folder: images
+public_folder: /images
+
+collections:
+  - name: settings
+    label: 个人信息
+    files:
+      - name: profile
+        label: 个人资料
+        file: _data/profile.yml
+        fields:
+          - { label: 名字, name: name, widget: string }
+          - { label: 简介, name: bio, widget: text }
+          - { label: 头像, name: avatar, widget: image }
+
+  - name: albums
+    label: 相册
+    folder: _data/albums
+    create: true
+    slug: "{{year}}-{{slug}}"
+    fields:
+      - { label: 年份, name: year, widget: number }
+      - { label: 标题, name: title, widget: string }
+      - { label: 描述, name: description, widget: string, required: false }
+      - label: 照片
+        name: photos
+        widget: list
+        fields:
+          - { label: 图片, name: image, widget: image }
+          - { label: 说明, name: caption, widget: string, required: false }
