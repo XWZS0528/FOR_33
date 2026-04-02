@@ -24,6 +24,8 @@ collections:
     label: 相册
     folder: _data/albums
     create: true
+    format: yaml
+    extension: yml
     slug: "{{year}}-{{slug}}"
     fields:
       - { label: 年份, name: year, widget: number }
