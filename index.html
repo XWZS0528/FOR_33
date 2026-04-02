@@ -467,11 +467,12 @@
 
         const albums = [];
         for (const file of files) {
-          const r = await fetch(file.download_url);
-          const text = await r.text();
-          const data = jsyaml.load(text);
-          albums.push(data);
-        }
+  if (!file.name.endsWith('.yml')) continue;
+  const r = await fetch(file.download_url);
+  const text = await r.text();
+  const data = jsyaml.load(text);
+  albums.push(data);
+}
 
         albums.sort((a, b) => b.year - a.year);
 
