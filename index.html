@@ -567,6 +567,73 @@
     }
 
     loadProfile();
+    // 动态加载相册
+    async function loadAlbums() {
+      try {
+        const res = await fetch('https://api.github.com/repos/XWZS0528/FOR_33/contents/_data/albums');
+        const files = await res.json();
+        if (!Array.isArray(files)) return;
+
+        const albums = [];
+        for (const file of files) {
+          const r = await fetch(file.download_url);
+          const text = await r.text();
+          const data = jsyaml.load(text);
+          albums.push(data);
+        }
+
+        albums.sort((a, b) => b.year - a.year);
+
+        const gallery = document.getElementById('gallery');
+        gallery.innerHTML = '';
+
+        albums.forEach((album, i) => {
+          const delay = 0.3 + i * 0.15;
+          const photosHtml = album.photos ? album.photos.map(p => `
+            <div class="photo-item">
+              <img src="${p.image}" alt="${p.caption || ''}" />
+              <div class="photo-overlay">
+                <span class="photo-caption">${p.caption || ''}</span>
+              </div>
+            </div>
+          `).join('') : '';
+
+          const groupHtml = `
+            <div class="year-group" style="animation-delay:${delay}s">
+              <div class="year-header">
+                <span class="year-label">${album.year}</span>
+                <div>
+                  <div class="group-title">${album.title}</div>
+                  <div class="group-desc">${album.description || ''}</div>
+                </div>
+              </div>
+              <div class="photo-grid">${photosHtml}</div>
+              <div class="heart-row">
+                <button class="heart-btn" onclick="likeGroup(this, 'group-${album.year}')">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                    <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+                  </svg>
+                </button>
+                <span class="heart-count" id="count-group-${album.year}">0</span>
+              </div>
+            </div>
+          `;
+          gallery.insertAdjacentHTML('beforeend', groupHtml);
+        });
+
+        // 重新绑定 lightbox
+        document.querySelectorAll('.photo-item img').forEach(img => {
+          img.addEventListener('click', () => {
+            document.getElementById('lightbox-img').src = img.src;
+            document.getElementById('lightbox').classList.add('active');
+          });
+        });
+
+        loadCounts();
+      } catch(e) { console.error(e); }
+    }
+
+    loadAlbums();
     // Hearts — Cloudflare Workers 持久化
     const API = 'https://api.lisa1021.com'; 
 
