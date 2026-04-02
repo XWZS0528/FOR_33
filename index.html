@@ -540,6 +540,33 @@
   </footer>
 
   <script>
+    // 动态加载个人信息
+    async function loadProfile() {
+      try {
+        const res = await fetch('/_data/profile.yml');
+        const text = await res.text();
+        const data = jsyaml.load(text);
+        if (data.name) {
+          document.querySelector('.profile-name').textContent = data.name;
+          document.querySelector('.nav-logo').textContent = data.name;
+          document.title = data.name;
+        }
+        if (data.bio) {
+          document.querySelector('.profile-bio').textContent = data.bio;
+        }
+        if (data.avatar) {
+          const hero = document.querySelector('.hero');
+          const placeholder = hero.querySelector('.profile-avatar-placeholder');
+          const img = document.createElement('img');
+          img.className = 'profile-avatar';
+          img.src = data.avatar;
+          img.alt = data.name || 'avatar';
+          placeholder.replaceWith(img);
+        }
+      } catch(e) {}
+    }
+
+    loadProfile();
     // Hearts — Cloudflare Workers 持久化
     const API = 'https://api.lisa1021.com'; 
 
