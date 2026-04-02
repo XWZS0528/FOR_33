@@ -549,9 +549,8 @@
 
    // Lightbox 事件委托
     document.getElementById('gallery').addEventListener('click', function(e) {
-      const img = e.target.closest('.photo-item img');
-      if (img) {
-        document.getElementById('lightbox-img').src = img.src;
+      if (e.target.tagName === 'IMG' && e.target.closest('.photo-item')) {
+        document.getElementById('lightbox-img').src = e.target.src;
         document.getElementById('lightbox').classList.add('active');
       }
     });
