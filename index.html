@@ -513,13 +513,7 @@
           gallery.insertAdjacentHTML('beforeend', groupHtml);
         });
 
-        // 重新绑定 lightbox
-        document.querySelectorAll('.photo-item img').forEach(img => {
-          img.addEventListener('click', () => {
-            document.getElementById('lightbox-img').src = img.src;
-            document.getElementById('lightbox').classList.add('active');
-          });
-        });
+       
 
         loadCounts();
       } catch(e) { console.error(e); }
@@ -553,12 +547,13 @@
 
     loadCounts();
 
-    // Lightbox
-    document.querySelectorAll('.photo-item img').forEach(img => {
-      img.addEventListener('click', () => {
+   // Lightbox 事件委托
+    document.getElementById('gallery').addEventListener('click', function(e) {
+      const img = e.target.closest('.photo-item img');
+      if (img) {
         document.getElementById('lightbox-img').src = img.src;
         document.getElementById('lightbox').classList.add('active');
-      });
+      }
     });
 
     function closeLightbox() {
